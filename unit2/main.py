@@ -17,7 +17,6 @@ class MalesubStitute:
         self.Mental = []
         self.SelfHelp = []
         self.Total = []
-        self.create_table()
 
     def read_csv(self):
         '''
@@ -32,7 +31,6 @@ class MalesubStitute:
                 self.Mental.append(row[2])
                 self.SelfHelp.append(row[3])
                 self.Total.append(row[4])
-        self.write_db()
 
     def create_table(self):
         '''
@@ -131,8 +129,14 @@ def main():
     主函式
     '''
     MalesubStitute_data = MalesubStitute('unit2/8411152e57c2133b.csv')
-    MalesubStitute_data.read_csv()
-    MalesubStitute_data.draw()
+    if os.path.exists('unit2/替代役各梯次受訓役男諮商來源分析統計表.db'):
+        MalesubStitute_data.draw()
+    else:
+        MalesubStitute_data.create_table()
+        MalesubStitute_data.read_csv()
+        MalesubStitute_data.write_db()
+        MalesubStitute_data.draw()
+
 
 
 if __name__ == '__main__':
